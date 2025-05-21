@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './wpds.css';
 import html2pdf from 'html2pdf.js';
+import * as lucideIcons from 'lucide';
 
 function App() {
   const [profile, setProfile] = useState(null);
@@ -26,29 +27,50 @@ function App() {
 
   if (!profile) return <div className="wpds-loading">Loading...</div>;
 
-  // Social icons mapping - using Lucide CDN
+  // Social icons mapping - using locally installed Lucide
   const getSocialIcon = (platform) => {
-    const baseUrl = 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/';
     const icons = {
-      twitter: 'twitter',
-      x: 'twitter', // Support both Twitter and X
-      linkedin: 'linkedin',
-      github: 'github',
-      facebook: 'facebook',
-      instagram: 'instagram',
-      youtube: 'youtube',
-      tiktok: 'music',
-      mastodon: 'share-2',
-      dribbble: 'dribbble',
-      behance: 'figma',
-      medium: 'book-open',
-      dev: 'code',
-      stackoverflow: 'layers',
-      default: 'link'
+      twitter: 'Twitter',
+      x: 'Twitter', // Support both Twitter and X
+      linkedin: 'Linkedin',
+      github: 'Github',
+      facebook: 'Facebook',
+      instagram: 'Instagram',
+      youtube: 'Youtube',
+      tiktok: 'Music',
+      mastodon: 'Share2',
+      dribbble: 'Dribbble',
+      behance: 'Figma',
+      medium: 'BookOpen',
+      dev: 'Code',
+      stackoverflow: 'Layers',
+      default: 'Link'
     };
     
+    // Get the icon name based on platform, with fallback to default
     const iconName = icons[platform.toLowerCase()] || icons.default;
-    return `${baseUrl}${iconName}.svg`;
+    // Get the icon component from lucide
+    const LucideIcon = lucideIcons[iconName];
+    
+    if (!LucideIcon) return null;
+    
+    // Different theme styling
+    const themeStyles = {
+      wds: { stroke: '#2271b1', background: '#f0f0f1' },
+      default: { stroke: '#555', background: '#f0f0f1' }
+    };
+    
+    // Use theme from profile, with fallback to default
+    const theme = profile.ui || 'default';
+    const style = themeStyles[theme] || themeStyles.default;
+    
+    return (
+      <LucideIcon 
+        size={20} 
+        color={style.stroke}
+        strokeWidth={1.5} 
+      />
+    );
   };
 
   return (
@@ -81,13 +103,11 @@ function App() {
               rel="noopener noreferrer"
               className="wpds-social-icon"
               title={item.platform}
+              style={{ 
+                background: profile.ui === 'wds' ? '#f0f0f1' : '#f0f0f1'
+              }}
             >
-              <img 
-                src={getSocialIcon(item.platform)} 
-                alt={item.platform} 
-                width="24" 
-                height="24" 
-              />
+              {getSocialIcon(item.platform)}
             </a>
           ))}
         </div>

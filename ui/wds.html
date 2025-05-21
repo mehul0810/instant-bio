@@ -1,6 +1,7 @@
 <script type="module">
     import { render, createElement as el, Fragment } from 'https://unpkg.com/@wordpress/element@latest/build-module/index.js';
     import { Button } from 'https://unpkg.com/@wordpress/components@latest/build-module/index.js';
+    import * as lucide from 'https://unpkg.com/lucide/dist/esm/lucide.js';
 
     // Import html2pdf.js for PDF export
     const script = document.createElement('script');
@@ -13,27 +14,58 @@
     const App = () => {
       // Social icons mapping with Lucide icons
       const getSocialIcon = (platform) => {
-        const baseUrl = 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/';
         const icons = {
-          twitter: 'twitter',
-          x: 'twitter', // Support both Twitter and X
-          linkedin: 'linkedin',
-          github: 'github',
-          facebook: 'facebook',
-          instagram: 'instagram',
-          youtube: 'youtube',
-          tiktok: 'music',
-          mastodon: 'share-2',
-          dribbble: 'dribbble',
-          behance: 'figma',
-          medium: 'book-open',
-          dev: 'code',
-          stackoverflow: 'layers',
-          default: 'link'
+          twitter: 'Twitter',
+          x: 'Twitter', // Support both Twitter and X
+          linkedin: 'Linkedin',
+          github: 'Github',
+          facebook: 'Facebook',
+          instagram: 'Instagram',
+          youtube: 'Youtube',
+          tiktok: 'Music',
+          mastodon: 'Share2',
+          dribbble: 'Dribbble',
+          behance: 'Figma',
+          medium: 'BookOpen',
+          dev: 'Code',
+          stackoverflow: 'Layers',
+          default: 'Link'
         };
         
+        // Get the icon name based on platform, with fallback to default
         const iconName = icons[platform.toLowerCase()] || icons.default;
-        return `${baseUrl}${iconName}.svg`;
+        
+        // Create a div to hold the SVG icon
+        const iconContainer = document.createElement('div');
+        
+        // Different theme styling based on UI theme
+        const themeStyles = {
+          wds: { stroke: '#2271b1', background: '#f0f0f1' },
+          default: { stroke: '#555', background: '#f0f0f1' }
+        };
+        
+        // Use theme from profile, with fallback to default
+        const theme = d.ui || 'default';
+        const style = themeStyles[theme] || themeStyles.default;
+        
+        // Check if the icon exists in lucide
+        if (lucide[iconName]) {
+          // Create the SVG element
+          iconContainer.innerHTML = lucide[iconName].toSvg({ 
+            color: style.stroke,
+            size: 20,
+            strokeWidth: 1.5
+          });
+          return iconContainer.firstChild;
+        }
+        
+        // Fallback to generic icon
+        iconContainer.innerHTML = lucide.Link.toSvg({ 
+          color: style.stroke,
+          size: 20,
+          strokeWidth: 1.5
+        });
+        return iconContainer.firstChild;
       };
 
       const downloadPDF = () => {
@@ -79,7 +111,7 @@
               width: '40px',
               height: '40px',
               borderRadius: '50%',
-              background: '#f0f0f1',
+              background: d.ui === 'wds' ? '#f0f0f1' : '#f0f0f1',
               transition: 'background-color 0.2s, transform 0.2s'
             },
             onMouseOver: (e) => {
@@ -89,15 +121,16 @@
             onMouseOut: (e) => {
               e.currentTarget.style.background = '#f0f0f1';
               e.currentTarget.style.transform = 'translateY(0)';
-            }
-          }, 
-          el('img', {
-            src: getSocialIcon(social.platform),
-            alt: social.platform,
-            style: {
-              width: '20px',
-              height: '20px',
-              opacity: '0.8'
+            },
+            ref: (node) => {
+              if (node) {
+                // Clear previous content
+                while (node.firstChild) {
+                  node.removeChild(node.firstChild);
+                }
+                // Add the SVG icon
+                node.appendChild(getSocialIcon(social.platform));
+              }
             }
           })
         ))
