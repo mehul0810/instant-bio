@@ -1,21 +1,81 @@
 <script type="module">
-  import { render } from 'https://unpkg.com/@wordpress/element@latest/build-module/index.js';
-  import { Button } from 'https://unpkg.com/@wordpress/components@latest/build-module/index.js';
+    import { render, createElement as el, Fragment } from 'https://unpkg.com/@wordpress/element@latest/build-module/index.js';
+    import { Button } from 'https://unpkg.com/@wordpress/components@latest/build-module/index.js';
 
-  const d = window.profileData;
+    // When injected, window.profileData will be available from index.html
+    const d = window.profileData || {};
 
-  const App = () => {
-    return wp.element.createElement("div", { style: { maxWidth: '600px', margin: 'auto', padding: '2rem' } }, [
-      wp.element.createElement("img", {
-        src: d.photo_url,
-        style: { borderRadius: '9999px', width: 100, height: 100 }
-      }),
-      wp.element.createElement("h1", null, d.name),
-      wp.element.createElement("p", null, d.headline),
-      wp.element.createElement("p", { dangerouslySetInnerHTML: { __html: d.description } }),
-      wp.element.createElement(Button, { variant: "primary", href: `mailto:${d.email}` }, d.cta?.text || 'Contact Me')
-    ]);
-  };
+    const App = () => {
+      const linkSections = (d.links || []).map(section =>
+        el(Fragment, {},
+          [
+            el('h3', {
+              style: {
+                marginTop: '1.5rem',
+                fontWeight: 'bold',
+                fontSize: '1.1rem'
+              }
+            }, section.category),
+            el('ul', {
+              style: {
+                listStyle: 'none',
+                paddingLeft: 0,
+                marginTop: '0.5rem'
+              }
+            },
+              (section.items || []).map(link =>
+                el('li', { style: { marginBottom: '0.5rem' }, key: link.url },
+                  el('a', {
+                    href: link.url,
+                    target: '_blank',
+                    rel: 'noopener noreferrer',
+                    style: { color: '#2271b1', textDecoration: 'none' }
+                  }, link.title)
+                )
+              )
+            )
+          ]
+        )
+      );
 
-  render(wp.element.createElement(App), document.body);
-</script>
+      return el('div', {
+        style: {
+          maxWidth: '640px',
+          margin: 'auto',
+          fontFamily: 'system-ui, sans-serif',
+          padding: '2rem',
+          lineHeight: 1.6,
+          background: '#fff',
+          borderRadius: '18px',
+          boxShadow: '0 2px 32px 0 rgba(0,0,0,0.08)'
+        }
+      }, [
+        el('img', {
+          src: d.photo_url,
+          alt: d.name,
+          style: {
+            width: 100,
+            height: 100,
+            borderRadius: '9999px',
+            objectFit: 'cover',
+            marginBottom: '1rem',
+            boxShadow: '0 0 0 3px #eee'
+          }
+        }),
+        el('h1', { style: { fontSize: '1.75rem', fontWeight: 'bold' } }, d.name),
+        el('p', { style: { fontStyle: 'italic', color: '#555' } }, d.headline),
+        el('p', {
+          dangerouslySetInnerHTML: { __html: d.description },
+          style: { marginTop: '1rem' }
+        }),
+        el(Button, {
+          variant: 'primary',
+          href: `mailto:${d.email}`,
+          style: { marginTop: '1.5rem' }
+        }, d.cta?.text || 'Contact Me'),
+        ...linkSections
+      ]);
+    };
+
+    render(el(App), document.getElementById('root'));
+  </script>
