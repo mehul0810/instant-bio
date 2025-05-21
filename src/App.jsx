@@ -53,7 +53,7 @@ function App() {
     // Theme color mapping
     const themeColors = {
       wds: '#2271b1', // WordPress design system blue
-      default: '#555'  // Default gray
+      default: '#757575'  // Default WordPress gray
     };
     
     // Use theme from profile, with fallback to default
