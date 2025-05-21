@@ -11,29 +11,46 @@
     const d = window.profileData || {};
 
     const App = () => {
-      // Social icons mapping with Lucide icons
+      // Social icons mapping with Simple Icons CDN
       const getSocialIcon = (platform) => {
-        const baseUrl = 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/';
+        // Map platform names to Simple Icons slugs
         const icons = {
           twitter: 'twitter',
-          x: 'twitter', // Support both Twitter and X
+          x: 'x',
           linkedin: 'linkedin',
           github: 'github',
           facebook: 'facebook',
           instagram: 'instagram',
           youtube: 'youtube',
-          tiktok: 'music',
-          mastodon: 'share-2',
+          tiktok: 'tiktok',
+          mastodon: 'mastodon',
           dribbble: 'dribbble',
-          behance: 'figma',
-          medium: 'book-open',
-          dev: 'code',
-          stackoverflow: 'layers',
+          behance: 'behance',
+          medium: 'medium',
+          dev: 'dev-dot-to',
+          stackoverflow: 'stackoverflow',
           default: 'link'
         };
         
-        const iconName = icons[platform.toLowerCase()] || icons.default;
-        return `${baseUrl}${iconName}.svg`;
+        // Get the icon slug based on platform, with fallback to default
+        const iconSlug = icons[platform.toLowerCase()] || platform.toLowerCase();
+        
+        // Theme color mapping
+        const themeColors = {
+          wds: '#2271b1', // WordPress design system blue
+          default: '#555'  // Default gray
+        };
+        
+        // Use theme from profile, with fallback to default
+        const themeColor = themeColors[d.ui] || themeColors.default;
+        
+        // Use Simple Icons CDN if it's a known platform
+        if (icons[platform.toLowerCase()]) {
+          return `https://cdn.simpleicons.org/${iconSlug}/${themeColor.replace('#', '')}`;
+        }
+        
+        // Fallback to a generic link icon from Feather Icons (more reliable than Lucide CDN)
+        return `https://cdn.jsdelivr.net/npm/feather-icons@4.29.0/dist/icons/link.svg`;
       };
 
       const downloadPDF = () => {
