@@ -1,4 +1,4 @@
-# ⚡️ Instant Bio
+# 🌟 Instant Bio – GitHub Pages Template
 
 Instant Bio is a fast, zero-setup personal bio page powered entirely by `profile.json`. Just click **Use this template**, personalize your JSON, and go live in under 2 minutes.
 
@@ -36,7 +36,23 @@ Instant Bio is a fast, zero-setup personal bio page powered entirely by `profile
   "photo_url": "https://your-username.github.io/your-repo-name/assets/photo.jpg",
   "description": "<strong>Mehul</strong> is a <em>Certified WordPress Expert</em> helping teams build performant, secure, and scalable digital products.",
   "ui": "wds",
-  "hovercard": true
+  "hovercard": true,
+  "links": [
+    {
+      "category": "Social",
+      "items": [
+        { "title": "Twitter", "url": "https://twitter.com/mehul" },
+        { "title": "LinkedIn", "url": "https://linkedin.com/in/mehul" }
+      ]
+    },
+    {
+      "category": "Projects",
+      "items": [
+        { "title": "OneCaptcha", "url": "https://onecaptcha.com" },
+        { "title": "Pet Gratitude", "url": "https://petgratitude.com" }
+      ]
+    }
+  ]
 }
 ```
 
