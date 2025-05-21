@@ -37,6 +37,11 @@ Instant Bio is a fast, zero-setup personal bio page powered entirely by `profile
   "description": "<strong>Mehul</strong> is a <em>Certified WordPress Expert</em> helping teams build performant, secure, and scalable digital products.",
   "ui": "wds",
   "hovercard": true,
+  "social": [
+    { "platform": "twitter", "url": "https://twitter.com/mehul" },
+    { "platform": "linkedin", "url": "https://linkedin.com/in/mehul" },
+    { "platform": "github", "url": "https://github.com/mehul" }
+  ],
   "links": [
     {
       "category": "Social",
@@ -58,6 +63,26 @@ Instant Bio is a fast, zero-setup personal bio page powered entirely by `profile
 
 > 💡 Supports HTML formatting in `description`
 
+### Supported Social Platforms
+
+The `social` array provides dedicated icons for these platforms:
+
+- twitter (or x)
+- linkedin
+- github
+- facebook
+- instagram
+- youtube
+- tiktok
+- mastodon
+- dribbble
+- behance
+- medium
+- dev
+- stackoverflow
+
+For other platforms, a generic link icon will be displayed.
+
 ---
 
 ## 🎨 UI Options
@@ -67,6 +92,16 @@ Instant Bio is a fast, zero-setup personal bio page powered entirely by `profile
 | `wds` | WordPress Design System (default) |
 
 More UI kits coming soon!
+
+---
+
+## ✨ Features
+
+* **Social Icons** - Display social media profiles with dedicated platform icons
+* **Download as PDF** - Allow visitors to download your bio as a PDF document
+* **SEO Optimized** - Dynamic meta tags for better search engine visibility 
+* **Mobile-Friendly** - Responsive design that works on all devices
+* **Zero Setup** - Just edit profile.json and you're live!
 
 ---
 

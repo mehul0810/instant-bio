@@ -34,6 +34,13 @@ body {
   margin-bottom: 1.5rem;
   color: #333;
 }
+.wpds-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 1.5rem 0;
+}
 .wpds-btn {
   display: inline-block;
   background: #2271b1;
@@ -41,12 +48,46 @@ body {
   padding: .7em 1.5em;
   border-radius: 8px;
   text-decoration: none;
-  margin-bottom: 1.5rem;
-  margin-top: 1.5rem;
   transition: background .2s;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
 }
 .wpds-btn:hover {
   background: #135e96;
+}
+.wpds-btn-secondary {
+  background: #f0f0f1;
+  color: #2c3338;
+}
+.wpds-btn-secondary:hover {
+  background: #dcdcde;
+}
+.wpds-social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1rem 0 1.5rem;
+}
+.wpds-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f0f1;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.wpds-social-icon:hover {
+  background: #dcdcde;
+  transform: translateY(-3px);
+}
+.wpds-social-icon img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
 }
 .wpds-links {
   margin-top: 2rem;

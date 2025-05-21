@@ -4,8 +4,41 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Instant Bio</title>
-    <meta name="description" content="Your instant bio page powered by profile.json" />
+    <title id="page-title">Instant Bio</title>
+    <meta name="description" id="page-description" content="Your instant bio page powered by profile.json" />
+    <meta property="og:title" id="og-title" content="Instant Bio" />
+    <meta property="og:description" id="og-description" content="Your instant bio page powered by profile.json" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" id="og-image" content="" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" id="twitter-title" content="Instant Bio" />
+    <meta name="twitter:description" id="twitter-description" content="Your instant bio page powered by profile.json" />
+    <meta name="twitter:image" id="twitter-image" content="" />
+    <meta name="keywords" id="page-keywords" content="bio, profile, personal page" />
+    <script>
+      // Dynamically update meta tags once profile is loaded
+      fetch('profile.json')
+        .then(response => response.json())
+        .then(data => {
+          // Update page title and meta tags
+          const name = data.name || 'Instant Bio';
+          const description = data.short_description || 'Personal bio page';
+          const image = data.photo_url || '';
+          const keywords = data.keywords || 'bio, profile, personal page';
+          
+          document.title = name;
+          document.getElementById('page-title').textContent = name;
+          document.getElementById('page-description').setAttribute('content', description);
+          document.getElementById('og-title').setAttribute('content', name);
+          document.getElementById('og-description').setAttribute('content', description);
+          document.getElementById('og-image').setAttribute('content', image);
+          document.getElementById('twitter-title').setAttribute('content', name);
+          document.getElementById('twitter-description').setAttribute('content', description);
+          document.getElementById('twitter-image').setAttribute('content', image);
+          document.getElementById('page-keywords').setAttribute('content', keywords);
+        })
+        .catch(err => console.error('Failed to load profile:', err));
+    </script>
   </head>
   <body>
     <div id="root"></div>

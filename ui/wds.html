@@ -2,10 +2,107 @@
     import { render, createElement as el, Fragment } from 'https://unpkg.com/@wordpress/element@latest/build-module/index.js';
     import { Button } from 'https://unpkg.com/@wordpress/components@latest/build-module/index.js';
 
+    // Import html2pdf.js for PDF export
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    document.head.appendChild(script);
+
     // When injected, window.profileData will be available from index.html
     const d = window.profileData || {};
 
     const App = () => {
+      // Social icons mapping with Lucide icons
+      const getSocialIcon = (platform) => {
+        const baseUrl = 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/';
+        const icons = {
+          twitter: 'twitter',
+          x: 'twitter', // Support both Twitter and X
+          linkedin: 'linkedin',
+          github: 'github',
+          facebook: 'facebook',
+          instagram: 'instagram',
+          youtube: 'youtube',
+          tiktok: 'music',
+          mastodon: 'share-2',
+          dribbble: 'dribbble',
+          behance: 'figma',
+          medium: 'book-open',
+          dev: 'code',
+          stackoverflow: 'layers',
+          default: 'link'
+        };
+        
+        const iconName = icons[platform.toLowerCase()] || icons.default;
+        return `${baseUrl}${iconName}.svg`;
+      };
+
+      const downloadPDF = () => {
+        const element = document.getElementById('bio-container');
+        const opt = {
+          margin: 10,
+          filename: `${d.name}-bio.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        
+        // Use window.html2pdf to ensure it's loaded
+        if (window.html2pdf) {
+          window.html2pdf().set(opt).from(element).save();
+        } else {
+          console.error('html2pdf.js not loaded yet');
+          alert('PDF generator is loading, please try again in a moment.');
+        }
+      };
+
+      // Social icons section
+      const socialIcons = (d.social || []).length > 0 ? 
+        el('div', {
+          style: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.75rem',
+            margin: '1rem 0 1.5rem'
+          }
+        }, 
+        d.social.map(social => 
+          el('a', {
+            href: social.url,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            title: social.platform,
+            style: {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              background: '#f0f0f1',
+              transition: 'background-color 0.2s, transform 0.2s'
+            },
+            onMouseOver: (e) => {
+              e.currentTarget.style.background = '#dcdcde';
+              e.currentTarget.style.transform = 'translateY(-3px)';
+            },
+            onMouseOut: (e) => {
+              e.currentTarget.style.background = '#f0f0f1';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }
+          }, 
+          el('img', {
+            src: getSocialIcon(social.platform),
+            alt: social.platform,
+            style: {
+              width: '20px',
+              height: '20px',
+              opacity: '0.8'
+            }
+          })
+        ))
+      ) : null;
+
       const linkSections = (d.links || []).map(section =>
         el(Fragment, {},
           [
@@ -39,6 +136,7 @@
       );
 
       return el('div', {
+        id: 'bio-container',
         style: {
           maxWidth: '640px',
           margin: 'auto',
@@ -68,11 +166,25 @@
           dangerouslySetInnerHTML: { __html: d.description },
           style: { marginTop: '1rem' }
         }),
-        el(Button, {
-          variant: 'primary',
-          href: `mailto:${d.email}`,
-          style: { marginTop: '1.5rem' }
-        }, d.cta?.text || 'Contact Me'),
+        el('div', {
+          style: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.8rem',
+            margin: '1.5rem 0'
+          }
+        }, [
+          el(Button, {
+            variant: 'primary',
+            href: `mailto:${d.email}`,
+          }, d.cta?.text || 'Contact Me'),
+          el(Button, {
+            variant: 'secondary',
+            onClick: downloadPDF,
+          }, 'Download as PDF')
+        ]),
+        socialIcons,
         ...linkSections
       ]);
     };
