@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  background: #f8fafc;
+  font-family: system-ui, sans-serif;
+}
+.wpds-bio-card {
+  max-width: 640px;
+  margin: 2.5rem auto;
+  padding: 2.5rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 32px 0 rgba(0,0,0,0.08);
+  text-align: center;
+}
+.wpds-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 9999px;
+  object-fit: cover;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 0 0 3px #eee;
+}
+.wpds-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: .3rem;
+}
+.wpds-headline {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 1.2rem;
+}
+.wpds-description {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+.wpds-btn {
+  display: inline-block;
+  background: #2271b1;
+  color: #fff;
+  padding: .7em 1.5em;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  transition: background .2s;
+}
+.wpds-btn:hover {
+  background: #135e96;
+}
+.wpds-links {
+  margin-top: 2rem;
+  text-align: left;
+}
+.wpds-link-section {
+  margin-bottom: 1.5rem;
+}
+.wpds-link-category {
+  font-weight: bold;
+  color: #2271b1;
+  margin-bottom: .5rem;
+}
+.wpds-link-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.wpds-link-section li {
+  margin-bottom: .5rem;
+}
+.wpds-link-section a {
+  color: #135e96;
+  text-decoration: none;
+}
+.wpds-link-section a:hover {
+  text-decoration: underline;
+}
+.wpds-loading {
+  padding: 4rem;
+  text-align: center;
+  color: #888;
+}
