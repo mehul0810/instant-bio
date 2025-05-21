@@ -114,7 +114,7 @@ function App() {
         <div className="wpds-links">
           {profile.links.map((section) => (
             <div key={section.category} className="wpds-link-section">
-              <div className="wpds-link-category">{section.category}</div>
+              <h3 className="wpds-link-category">{section.category}</h3>
               <ul>
                 {section.items.map((item) => (
                   <li key={item.url}>

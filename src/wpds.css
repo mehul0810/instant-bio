@@ -99,7 +99,9 @@ body {
 .wpds-link-category {
   font-weight: bold;
   color: #2271b1;
-  margin-bottom: .5rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  margin-top: 0;
 }
 .wpds-link-section ul {
   list-style: none;
@@ -107,14 +109,21 @@ body {
   margin: 0;
 }
 .wpds-link-section li {
-  margin-bottom: .5rem;
+  margin-bottom: .75rem;
+  width: 100%;
 }
 .wpds-link-section a {
+  display: block;
   color: #135e96;
   text-decoration: none;
+  background: #f0f0f1;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  transition: background-color 0.2s, transform 0.2s;
 }
 .wpds-link-section a:hover {
-  text-decoration: underline;
+  background: #dcdcde;
+  transform: translateY(-2px);
 }
 .wpds-loading {
   padding: 4rem;
