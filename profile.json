@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "name": "Mehul Gohil",
+  "email": "mehul@example.com",
+  "contact": "https://mehul.dev/contact",
+  "headline": "WordPress Expert & SaaS Developer",
+  "short_description": "Helping businesses scale with blazing-fast WordPress solutions.",
+  "keywords": "WordPress developer, SaaS builder, freelance expert, plugin developer",
+  "photo_url": "https://your-username.github.io/your-repo-name/assets/photo.jpg",
+  "description": "<strong>Mehul</strong> is a <em>Certified WordPress Expert</em> helping teams build performant, secure, and scalable digital products.",
+  "ui": "wds",
+  "hovercard": true
+}

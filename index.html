@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bio Page</title>
+  <meta property="og:title" content="Bio Page" />
+  <meta property="og:description" content="Dynamic bio page powered by JSON" />
+  <meta property="og:image" content="avatar.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+</head>
+<body>
+  <script>
+    const userRepo = window.location.pathname.split('/')[1];
+    const username = window.location.hostname.split('.')[0];
+    const profileUrl = `https://raw.githubusercontent.com/${username}/${userRepo}/main/profile.json`;
+
+    fetch(profileUrl)
+      .then(res => res.json())
+      .then(data => {
+        const script = document.createElement('script');
+        script.src = `ui/${data.ui || 'wds'}.html`;
+        script.onload = () => {
+          window.profileData = data;
+        };
+        document.body.appendChild(script);
+      });
+  </script>
+</body>
+</html>

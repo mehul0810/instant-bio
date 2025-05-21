@@ -1,0 +1,21 @@
+<script type="module">
+  import { render } from 'https://unpkg.com/@wordpress/element@latest/build-module/index.js';
+  import { Button } from 'https://unpkg.com/@wordpress/components@latest/build-module/index.js';
+
+  const d = window.profileData;
+
+  const App = () => {
+    return wp.element.createElement("div", { style: { maxWidth: '600px', margin: 'auto', padding: '2rem' } }, [
+      wp.element.createElement("img", {
+        src: d.photo_url,
+        style: { borderRadius: '9999px', width: 100, height: 100 }
+      }),
+      wp.element.createElement("h1", null, d.name),
+      wp.element.createElement("p", null, d.headline),
+      wp.element.createElement("p", { dangerouslySetInnerHTML: { __html: d.description } }),
+      wp.element.createElement(Button, { variant: "primary", href: `mailto:${d.email}` }, d.cta?.text || 'Contact Me')
+    ]);
+  };
+
+  render(wp.element.createElement(App), document.body);
+</script>
