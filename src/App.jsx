@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './wpds.css';
 import html2pdf from 'html2pdf.js';
-import * as lucideIcons from 'lucide';
 
 function App() {
   const [profile, setProfile] = useState(null);
@@ -27,50 +26,46 @@ function App() {
 
   if (!profile) return <div className="wpds-loading">Loading...</div>;
 
-  // Social icons mapping - using locally installed Lucide
+  // Social icons mapping - using Simple Icons CDN for brand icons
   const getSocialIcon = (platform) => {
+    // Map platform names to Simple Icons slugs
     const icons = {
-      twitter: 'Twitter',
-      x: 'Twitter', // Support both Twitter and X
-      linkedin: 'Linkedin',
-      github: 'Github',
-      facebook: 'Facebook',
-      instagram: 'Instagram',
-      youtube: 'Youtube',
-      tiktok: 'Music',
-      mastodon: 'Share2',
-      dribbble: 'Dribbble',
-      behance: 'Figma',
-      medium: 'BookOpen',
-      dev: 'Code',
-      stackoverflow: 'Layers',
-      default: 'Link'
+      twitter: 'twitter',
+      x: 'x',
+      linkedin: 'linkedin',
+      github: 'github',
+      facebook: 'facebook',
+      instagram: 'instagram',
+      youtube: 'youtube',
+      tiktok: 'tiktok',
+      mastodon: 'mastodon',
+      dribbble: 'dribbble',
+      behance: 'behance',
+      medium: 'medium',
+      dev: 'dev-dot-to',
+      stackoverflow: 'stackoverflow',
+      default: 'link'
     };
     
-    // Get the icon name based on platform, with fallback to default
-    const iconName = icons[platform.toLowerCase()] || icons.default;
-    // Get the icon component from lucide
-    const LucideIcon = lucideIcons[iconName];
+    // Get the icon slug based on platform, with fallback to default
+    const iconSlug = icons[platform.toLowerCase()] || platform.toLowerCase();
     
-    if (!LucideIcon) return null;
-    
-    // Different theme styling
-    const themeStyles = {
-      wds: { stroke: '#2271b1', background: '#f0f0f1' },
-      default: { stroke: '#555', background: '#f0f0f1' }
+    // Theme color mapping
+    const themeColors = {
+      wds: '#2271b1', // WordPress design system blue
+      default: '#555'  // Default gray
     };
     
     // Use theme from profile, with fallback to default
-    const theme = profile.ui || 'default';
-    const style = themeStyles[theme] || themeStyles.default;
+    const themeColor = themeColors[profile.ui] || themeColors.default;
     
-    return (
-      <LucideIcon 
-        size={20} 
-        color={style.stroke}
-        strokeWidth={1.5} 
-      />
-    );
+    // Use Simple Icons CDN if it's a known platform
+    if (icons[platform.toLowerCase()]) {
+      return `https://cdn.simpleicons.org/${iconSlug}/${themeColor.replace('#', '')}`;
+    }
+    
+    // Fallback to a generic link icon from Feather Icons (more reliable than Lucide CDN)
+    return `https://cdn.jsdelivr.net/npm/feather-icons@4.29.0/dist/icons/link.svg`;
   };
 
   return (
@@ -103,11 +98,13 @@ function App() {
               rel="noopener noreferrer"
               className="wpds-social-icon"
               title={item.platform}
-              style={{ 
-                background: profile.ui === 'wds' ? '#f0f0f1' : '#f0f0f1'
-              }}
             >
-              {getSocialIcon(item.platform)}
+              <img 
+                src={getSocialIcon(item.platform)} 
+                alt={item.platform} 
+                width="24" 
+                height="24" 
+              />
             </a>
           ))}
         </div>
