@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background: #f8fafc;
+  background: #f0f0f1;
   font-family: system-ui, sans-serif;
 }
 .wpds-bio-card {
@@ -27,12 +27,12 @@ body {
 }
 .wpds-headline {
   font-style: italic;
-  color: #555;
+  color: #757575;
   margin-bottom: 1.2rem;
 }
 .wpds-description {
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #1e1e1e;
 }
 .wpds-button-group {
   display: flex;
@@ -128,5 +128,5 @@ body {
 .wpds-loading {
   padding: 4rem;
   text-align: center;
-  color: #888;
+  color: #757575;
 }

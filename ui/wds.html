@@ -38,7 +38,7 @@
         // Theme color mapping
         const themeColors = {
           wds: '#2271b1', // WordPress design system blue
-          default: '#555'  // Default gray
+          default: '#757575'  // Default WordPress gray
         };
         
         // Use theme from profile, with fallback to default
@@ -195,7 +195,7 @@
           }
         }),
         el('h1', { style: { fontSize: '1.75rem', fontWeight: 'bold' } }, d.name),
-        el('p', { style: { fontStyle: 'italic', color: '#555' } }, d.headline),
+        el('p', { style: { fontStyle: 'italic', color: '#757575' } }, d.headline),
         el('p', {
           dangerouslySetInnerHTML: { __html: d.description },
           style: { marginTop: '1rem' }
