@@ -10,6 +10,11 @@
   "description": "<strong>Mehul</strong> is a <em>Certified WordPress Expert</em> helping teams build performant, secure, and scalable digital products.",
   "ui": "wds",
   "hovercard": true,
+  "social": [
+    { "platform": "twitter", "url": "https://twitter.com/mehul_gohil0810" },
+    { "platform": "linkedin", "url": "https://linkedin.com/in/mehulgohilindia" },
+    { "platform": "github", "url": "https://github.com/mehul0810" }
+  ],
   "links": [
     {
         "category": "Social",
