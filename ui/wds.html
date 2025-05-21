@@ -127,7 +127,8 @@
               style: {
                 marginTop: '1.5rem',
                 fontWeight: 'bold',
-                fontSize: '1.1rem'
+                fontSize: '1.2rem',
+                marginBottom: '1rem'
               }
             }, section.category),
             el('ul', {
@@ -138,12 +139,28 @@
               }
             },
               (section.items || []).map(link =>
-                el('li', { style: { marginBottom: '0.5rem' }, key: link.url },
+                el('li', { style: { marginBottom: '0.75rem', width: '100%' }, key: link.url },
                   el('a', {
                     href: link.url,
                     target: '_blank',
                     rel: 'noopener noreferrer',
-                    style: { color: '#2271b1', textDecoration: 'none' }
+                    style: { 
+                      display: 'block',
+                      color: '#2271b1', 
+                      textDecoration: 'none',
+                      background: '#f0f0f1',
+                      padding: '0.8rem 1rem',
+                      borderRadius: '8px',
+                      transition: 'background-color 0.2s, transform 0.2s'
+                    },
+                    onMouseOver: (e) => {
+                      e.currentTarget.style.background = '#dcdcde';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    },
+                    onMouseOut: (e) => {
+                      e.currentTarget.style.background = '#f0f0f1';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }
                   }, link.title)
                 )
               )
